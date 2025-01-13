@@ -1,0 +1,27 @@
+{
+"manifest_version": 3,
+"name": "Zen Image Downloader",
+"version": "1.0",
+"description": "Download all images from web pages with one click",
+"permissions": [
+    "downloads",
+    "tabs",
+    "activeTab",
+    "<all_urls>",
+    "storage",
+    "downloads.open",
+    "webNavigation"
+],
+"action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Zen Image Downloader"
+},
+"background": {
+    "service_worker": "background.js"
+},
+"content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["content.js"]
+}]
+}
+
