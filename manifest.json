@@ -1,27 +1,72 @@
 {
-"manifest_version": 3,
-"name": "Zen Image Downloader",
-"version": "1.0",
-"description": "Download all images from web pages with one click",
-"permissions": [
-    "downloads",
-    "tabs",
-    "activeTab",
-    "<all_urls>",
-    "storage",
-    "downloads.open",
-    "webNavigation"
-],
-"action": {
-    "default_popup": "popup/popup.html",
-    "default_title": "Zen Image Downloader"
-},
-"background": {
-    "service_worker": "background.js"
-},
-"content_scripts": [{
-    "matches": ["<all_urls>"],
-    "js": ["content.js"]
-}]
+    "manifest_version": 2,
+    "name": "Zen Image Downloader",
+    "version": "1.1.0",
+    "description": "Download and optimize images from web pages with advanced filtering and batch processing capabilities",
+    "author": "Zen Browser Team",
+    "homepage_url": "https://github.com/zen-browser/zen-image-downloader",
+    "developer": {
+        "name": "Zen Browser Team",
+        "url": "https://github.com/zen-browser"
+    },
+    "icons": {
+        "48": "icons/icon-48.png",
+        "96": "icons/icon-96.png"
+    },
+    "permissions": [
+        "activeTab",
+        "downloads",
+        "storage",
+        "unlimitedStorage"
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'; img-src 'self' data: https: http:",
+    "web_accessible_resources": [
+        "icons/*",
+        "popup/*",
+        "options/*"
+    ],
+    "browser_action": {
+        "default_icon": {
+            "48": "icons/icon-48.png",
+            "96": "icons/icon-96.png"
+        },
+        "default_popup": "popup/popup.html",
+        "default_title": "Zen Image Downloader"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": true
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Alt+Shift+D"
+            },
+            "description": "Open Image Downloader"
+        },
+        "download_all": {
+            "suggested_key": {
+                "default": "Alt+Shift+A"
+            },
+            "description": "Download all images"
+        }
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "zen-image-downloader@zen-browser.com",
+            "strict_min_version": "57.0"
+        }
+    },
+    "minimum_chrome_version": "88",
+    "options_ui": {
+        "page": "options/options.html",
+        "open_in_tab": false
+    }
 }
 

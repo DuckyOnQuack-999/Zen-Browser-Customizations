@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Zen Image Downloader</h1>
+        
+        <div class="stats-panel">
+            <div class="stat-item">
+                <span class="stat-label">Total Images:</span>
+                <span id="totalImages">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Selected:</span>
+                <span id="selectedCount">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Downloaded:</span>
+                <span id="downloadCount">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Failed:</span>
+                <span id="failureCount">0</span>
+            </div>
+        </div>
+        
+        <div class="preview-panel">
+            <h2>Image Preview</h2>
+            <div id="imagePreview" class="preview-grid"></div>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label>File Types:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="fileType" value="jpg" checked> JPG</label>
+                    <label><input type="checkbox" name="fileType" value="png" checked> PNG</label>
+                    <label><input type="checkbox" name="fileType" value="gif" checked> GIF</label>
+                    <label><input type="checkbox" name="fileType" value="webp" checked> WebP</label>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <label>Minimum Size:</label>
+                <input type="number" id="minWidth" placeholder="Width (px)" min="0">
+                <input type="number" id="minHeight" placeholder="Height (px)" min="0">
+            </div>
+            
+            <div class="filter-group">
+                <label>Download Location:</label>
+                <input type="text" id="subdirectory" placeholder="Subdirectory (optional)">
+            </div>
+        </div>
+        
+        <div class="advanced-options">
+            <h3 class="collapsible">Advanced Options</h3>
+            <div class="collapsible-content">
+                <div class="filter-group">
+                    <label>Naming Pattern:</label>
+                    <input type="text" id="namingPattern" placeholder="e.g., image_{n}_{date}" value="image_{n}">
+                    <div class="pattern-help">
+                        Available variables: {n} = number, {date} = date, {type} = file type
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Convert To:</label>
+                    <select id="convertFormat">
+                        <option value="original">Original Format</option>
+                        <option value="jpg">JPG</option>
+                        <option value="png">PNG</option>
+                        <option value="webp">WebP</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Quality:</label>
+                    <input type="range" id="quality" min="1" max="100" value="85">
+                    <span id="qualityValue">85%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="downloadQueue" class="download-queue">
+            <h3>Download Queue</h3>
+            <div class="queue-list" id="queueList"></div>
+        </div>
+        
+        <button id="downloadButton">Download Selected Images</button>
+        <div id="progress" class="progress-container" style="display: none;">
+        <div class="progress-bar">
+        <div id="progress-fill"></div>
+        </div>
+        <div id="progress-text">0%</div>
+    </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
+

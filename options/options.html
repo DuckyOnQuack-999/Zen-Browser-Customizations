@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../popup/popup.css">
+    <style>
+        body {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .section {
+            margin-bottom: 24px;
+        }
+        
+        .option-group {
+            margin-bottom: 16px;
+        }
+        
+        .save-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" role="main">
+        <header class="header" role="banner">
+            <h1><i class="material-icons" aria-hidden="true">settings</i> Zen Image Downloader Settings</h1>
+        </header>
+
+        <div class="section">
+            <h2><i class="material-icons" aria-hidden="true">folder</i> Default Save Settings</h2>
+            <div class="option-group">
+                <label for="defaultLocation">Default Save Location</label>
+                <div class="input-with-icon">
+                    <i class="material-icons" aria-hidden="true">folder</i>
+                    <input type="text" id="defaultLocation" placeholder="Downloads/Images">
+                </div>
+            </div>
+            <div class="option-group">
+                <label for="defaultPattern">Default Filename Pattern</label>
+                <div class="input-with-icon">
+                    <i class="material-icons" aria-hidden="true">text_format</i>
+                    <input type="text" id="defaultPattern" placeholder="image_{n}_{date}">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><i class="material-icons" aria-hidden="true">tune</i> Image Processing</h2>
+            <div class="option-group">
+                <label for="defaultQuality">Default Quality</label>
+                <div class="quality-slider">
+                    <input type="range" id="defaultQuality" min="1" max="100" value="85">
+                    <span id="qualityValue">85%</span>
+                </div>
+            </div>
+            <div class="option-group">
+                <label for="optimization">Default Optimization</label>
+                <select id="optimization" class="select-input">
+                    <option value="none">None</option>
+                    <option value="lossless">Lossless</option>
+                    <option value="balanced" selected>Balanced</option>
+                    <option value="aggressive">Aggressive</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><i class="material-icons" aria-hidden="true">filter_list</i> Default Filters</h2>
+            <div class="option-group">
+                <label>Minimum Image Size</label>
+                <div class="size-inputs">
+                    <div class="input-with-icon">
+                        <i class="material-icons" aria-hidden="true">width</i>
+                        <input type="number" id="defaultMinWidth" placeholder="Width" min="0">
+                    </div>
+                    <div class="input-with-icon">
+                        <i class="material-icons" aria-hidden="true">height</i>
+                        <input type="number" id="defaultMinHeight" placeholder="Height" min="0">
+                    </div>
+                </div>
+            </div>
+            <div class="option-group">
+                <label>Default File Types</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="jpg" checked>
+                        <span class="checkbox-text">JPG</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="png" checked>
+                        <span class="checkbox-text">PNG</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="gif" checked>
+                        <span class="checkbox-text">GIF</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="webp" checked>
+                        <span class="checkbox-text">WebP</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><i class="material-icons" aria-hidden="true">memory</i> Performance</h2>
+            <div class="option-group">
+                <label for="batchSize">Batch Processing Size</label>
+                <div class="input-with-icon">
+                    <i class="material-icons" aria-hidden="true">queue</i>
+                    <input type="number" id="batchSize" min="1" max="50" value="3">
+                </div>
+                <p class="help-text">Number of images to process simultaneously (1-50)</p>
+            </div>
+            <div class="option-group">
+                <label for="previewQuality">Preview Quality</label>
+                <select id="previewQuality" class="select-input">
+                    <option value="low">Low (Faster)</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High (Slower)</option>
+                </select>
+            </div>
+        </div>
+
+        <button id="saveButton" class="primary-button save-button">
+            <i class="material-icons" aria-hidden="true">save</i>
+            Save Settings
+        </button>
+    </div>
+    <script src="options.js"></script>
+</body>
+</html> 

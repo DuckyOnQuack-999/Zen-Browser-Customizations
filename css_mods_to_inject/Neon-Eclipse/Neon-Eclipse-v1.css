@@ -1,0 +1,238 @@
+/* Importing modern font for consistency */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&display=swap');
+
+/* Root variables for consistent theming */
+:root {
+    --background: #0c0c0c;
+    --foreground: #ffffff;
+    --primary: #ff0000;
+    --accent: #ff3333;
+    --muted: #181818;
+    --secondary: #263238;
+    --border: #ff0000;
+}
+
+/* General body styling */
+body {
+    background-color: var(--background);
+    font-family: 'Fira Code', monospace;
+    color: var(--foreground);
+    transition: all 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* Particle background effect */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+}
+
+/* Enhanced gradient background */
+.bg-gradient {
+    background: linear-gradient(45deg, var(--background), var(--muted), var(--primary));
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* GitHub-specific styles */
+div.mt-3.border-bottom.d-flex.feed-content.flex-justify-center,
+div.d-md-flex,
+div.flex-auto.pl-md-3.pl-0.js-check-all-container.min-width-0.pt-0.pt-md-3,
+div.repository-content,
+div.pt-3.hide-full-screen,
+div.text-center.pt-6.mt-6.px-4 {
+    background-color: var(--background);
+    transition: background-color 0.3s ease;
+}
+
+div.flash.js-notice.js-unwatch-suggestions {
+    background-color: var(--muted);
+    color: #bdbdbd;
+    font-family: 'Fira Code', monospace;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px var(--primary); }
+    50% { box-shadow: 0 0 20px var(--accent); }
+    100% { box-shadow: 0 0 10px var(--primary); }
+}
+
+button svg path,
+svg.octicon.octicon-git-pull-request-draft.color-fg-muted,
+svg.octicon.octicon-issue-opened.color-fg-open,
+svg.octicon.octicon-play.UnderlineNav-octicon.d-none.d-sm-inline,
+div svg path,
+div svg circle {
+    fill: var(--primary);
+    transition: fill 0.3s ease;
+}
+
+button svg path:hover,
+svg.octicon:hover {
+    fill: var(--accent);
+    transform: scale(1.1);
+}
+
+a.Link,
+span.js-select-all-text,
+p.m-0.text-normal.pr-2.pr-md-0.markdown-title,
+span.ActionListItem-label,
+a.topic-tag.topic-tag-link,
+a.Link--primary.line-clamp-2 {
+    color: #cacaca;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a.Link:hover,
+span.js-select-all-text:hover,
+p.m-0.text-normal.pr-2.pr-md-0.markdown-title:hover,
+span.ActionListItem-label:hover,
+a.topic-tag.topic-tag-link:hover,
+a.Link--primary.line-clamp-2:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+li.notifications-list-item.p-0.pl-2.pb-2.pb-md-0.position-relative.border-0.js-notifications-list-item.js-navigation-item.border-bottom.color-border-muted.notification-unread,
+p.m-0.f6.flex-auto,
+label.h6.pl-0.pl-md-4,
+relative-time.no-wrap,
+li.TimelineItem.TimelineItem--condensed.ml-1.pt-0.pb-3 {
+    color: var(--primary);
+}
+
+input.float-left.js-notification-bulk-action-check-item,
+input.mr-1.js-notifications-mark-all-prompt,
+input.form-control.input-contrast.input-block.mb-3.js-filterable-field.js-your-repositories-search,
+input.Checkbox__StyledCheckbox-sc-1ga3qj3-0.bkACyG {
+    background-color: #252525;
+    color: var(--primary);
+    border: 2px solid var(--accent);
+    transition: all 0.3s ease;
+}
+
+input.float-left.js-notification-bulk-action-check-item:focus,
+input.mr-1.js-notifications-mark-all-prompt:focus,
+input.form-control.input-contrast.input-block.mb-3.js-filterable-field.js-your-repositories-search:focus,
+input.Checkbox__StyledCheckbox-sc-1ga3qj3-0.bkACyG:focus {
+    box-shadow: 0 0 15px var(--primary);
+    border-color: var(--accent);
+}
+
+/* Cyberpunk button styling */
+button.js-toggler-target.rounded-left-2.btn-sm.btn.BtnGroup-item,
+button.rounded-left-2.btn-sm.btn.BtnGroup-item,
+button.rounded-left-2.btn-with-aria-count.btn-sm.btn.BtnGroup-item,
+a.Button--primary.Button--small.Button,
+button.AppHeader-button.global-create-button.Button--secondary.Button--medium.Button.width-auto.color-fg-muted,
+a.Button--secondary.Button--small.Button.flex-self-end,
+a.btn-sm.btn.BtnGroup-item {
+    background-color: var(--primary);
+    border: 2px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+button.js-toggler-target.rounded-left-2.btn-sm.btn.BtnGroup-item:hover,
+button.rounded-left-2.btn-sm.btn.BtnGroup-item:hover,
+button.rounded-left-2.btn-with-aria-count.btn-sm.btn.BtnGroup-item:hover,
+a.Button--primary.Button--small.Button:hover,
+button.AppHeader-button.global-create-button.Button--secondary.Button--medium.Button.width-auto.color-fg-muted:hover,
+a.Button--secondary.Button--small.Button.flex-self-end:hover,
+a.btn-sm.btn.BtnGroup-item:hover {
+    background-color: var(--accent);
+    box-shadow: 0 0 15px var(--primary);
+    transform: translateY(-3px) scale(1.05);
+}
+
+button.js-toggler-target.rounded-left-2.btn-sm.btn.BtnGroup-item::before,
+button.rounded-left-2.btn-sm.btn.BtnGroup-item::before,
+button.rounded-left-2.btn-with-aria-count.btn-sm.btn.BtnGroup-item::before,
+a.Button--primary.Button--small.Button::before,
+button.AppHeader-button.global-create-button.Button--secondary.Button--medium.Button.width-auto.color-fg-muted::before,
+a.Button--secondary.Button--small.Button.flex-self-end::before,
+a.btn-sm.btn.BtnGroup-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, transparent 70%);
+    transform: scale(0);
+    transition: transform 0.5s ease-out;
+}
+
+button.js-toggler-target.rounded-left-2.btn-sm.btn.BtnGroup-item:hover::before,
+button.rounded-left-2.btn-sm.btn.BtnGroup-item:hover::before,
+button.rounded-left-2.btn-with-aria-count.btn-sm.btn.BtnGroup-item:hover::before,
+a.Button--primary.Button--small.Button:hover::before,
+button.AppHeader-button.global-create-button.Button--secondary.Button--medium.Button.width-auto.color-fg-muted:hover::before,
+a.Button--secondary.Button--small.Button.flex-self-end:hover::before,
+a.btn-sm.btn.BtnGroup-item:hover::before {
+    transform: scale(1);
+}
+
+/* Neon text effect for headings */
+h1, h2, h3, h4, h5, h6 {
+    text-shadow: 0 0 10px var(--primary), 0 0 20px var(--accent);
+    transition: text-shadow 0.3s ease;
+}
+
+h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
+    text-shadow: 0 0 20px var(--primary), 0 0 30px var(--accent);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background);
+    box-shadow: inset 0 0 5px var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--primary), var(--accent));
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    box-shadow: 0 0 10px var(--primary);
+}
+
+/* Enhanced glitch effect for error messages */
+.text-destructive {
+    animation: enhancedGlitch 0.3s infinite;
+    text-shadow: 3px 3px var(--primary), -3px -3px var(--accent);
+    position: relative;
+}
+
+@keyframes enhancedGlitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-5px, 5px); }
+    40% { transform: translate(-5px, -5px); }
+    60% { transform: translate(5px, 5px); }
+    80% { transform: translate(5px, -5px); }
+    100% { transform: translate(0); }
+}

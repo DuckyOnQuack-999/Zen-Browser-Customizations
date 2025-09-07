@@ -1,0 +1,276 @@
+/*
+========================================
+Zen Browser GlassX userChrome.css theme
+Version: 1.0
+Author: DuckyOnQuack-999
+Last Updated: 2024
+License: MIT
+========================================
+
+TABLE OF CONTENTS:
+-----------------
+1. CSS Variables & Theme Configuration
+2. Global Styles & Reset
+3. Window & Browser Chrome
+4. Tabs
+4.1 Tab Bar
+4.2 Individual Tabs
+4.3 Tab Animations
+5. Navigation Bar
+5.1 URL Bar
+5.2 Buttons & Icons
+6. Sidebar & Panels
+7. Context Menus
+8. Scrollbars
+9. Special Effects
+9.1 Mica Effect
+9.2 Blur Effects
+10. Animations & Transitions
+11. Media Queries & Responsive Design
+12. Performance Optimizations
+*/
+
+/* 1. CSS Variables & Theme Configuration
+====================================== */
+:root {
+/* Colors */
+--zen-bg-primary: #1a1b26;
+--zen-bg-secondary: #24283b;
+--zen-accent: #7aa2f7;
+--zen-text: #a9b1d6;
+--zen-text-secondary: #9099c0;
+
+/* Opacity & Blur */
+--zen-bg-opacity: 0.85;
+--zen-blur-strength: 10px;
+
+/* Spacing */
+--zen-padding-sm: 4px;
+--zen-padding-md: 8px;
+--zen-padding-lg: 16px;
+
+/* Borders */
+--zen-border-radius-sm: 4px;
+--zen-border-radius-md: 8px;
+--zen-border-radius-lg: 12px;
+
+/* Animations */
+--zen-transition-speed: 200ms;
+--zen-transition-style: ease-in-out;
+
+/* Sizing */
+--zen-tab-height: 36px;
+--zen-urlbar-height: 32px;
+}
+
+/* Dark/Light Theme Variations */
+@media (prefers-color-scheme: light) {
+:root {
+    --zen-bg-primary: #ffffff;
+    --zen-bg-secondary: #f0f0f0;
+    --zen-text: #2c2c2c;
+    --zen-text-secondary: #666666;
+    --zen-bg-opacity: 0.75;
+}
+}
+
+/* 2. Global Styles & Reset
+========================= */
+* {
+-moz-appearance: none !important;
+transition-duration: var(--zen-transition-speed) !important;
+transition-timing-function: var(--zen-transition-style) !important;
+}
+
+/* 3. Window & Browser Chrome
+========================== */
+#main-window {
+background: rgba(0, 0, 0, var(--zen-bg-opacity)) !important;
+backdrop-filter: blur(var(--zen-blur-strength)) saturate(1.8) !important;
+}
+
+#navigator-toolbox {
+border: none !important;
+background: transparent !important;
+}
+
+/* 4. Tabs
+======== */
+/* 4.1 Tab Bar */
+#tabbrowser-tabs {
+--tab-min-height: var(--zen-tab-height) !important;
+background: transparent !important;
+}
+
+/* 4.2 Individual Tabs */
+.tabbrowser-tab {
+padding: 0 var(--zen-padding-md) !important;
+}
+
+.tab-background {
+border-radius: var(--zen-border-radius-md) !important;
+margin: var(--zen-padding-sm) var(--zen-padding-md) !important;
+height: calc(100% - var(--zen-padding-sm) * 2) !important;
+}
+
+.tab-content {
+padding: var(--zen-padding-sm) var(--zen-padding-md) !important;
+}
+
+/* Selected Tab */
+.tabbrowser-tab[selected="true"] .tab-background {
+background: var(--zen-bg-secondary) !important;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Tab Indicator */
+.tabbrowser-tab[selected="true"] .tab-background::after {
+content: "";
+position: absolute;
+bottom: 0;
+left: 15%;
+width: 70%;
+height: 2px;
+background: linear-gradient(90deg, 
+    transparent,
+    var(--zen-accent),
+    transparent
+);
+}
+
+/* 4.3 Tab Animations */
+.tabbrowser-tab {
+transition: 
+    opacity var(--zen-transition-speed) var(--zen-transition-style),
+    transform var(--zen-transition-speed) var(--zen-transition-style) !important;
+}
+
+.tabbrowser-tab:hover {
+transform: translateY(-1px) !important;
+}
+
+.tabbrowser-tab[pending-close] {
+transform: scale(0.8);
+opacity: 0;
+}
+
+/* 5. Navigation Bar
+================= */
+/* 5.1 URL Bar */
+#urlbar-container {
+--urlbar-height: var(--zen-urlbar-height);
+--urlbar-toolbar-height: calc(var(--zen-urlbar-height) + 6px) !important;
+}
+
+#urlbar {
+border-radius: calc(var(--zen-urlbar-height) / 2) !important;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+}
+
+#urlbar[focused="true"] {
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 6. Sidebar & Panels
+=================== */
+#sidebar-box,
+.sidebar-panel {
+background-color: var(--zen-bg-secondary) !important;
+border-radius: var(--zen-border-radius-md) !important;
+}
+
+/* 7. Context Menus
+================= */
+menupopup {
+--menu-background: var(--zen-bg-secondary) !important;
+--menu-border-radius: var(--zen-border-radius-md) !important;
+backdrop-filter: blur(var(--zen-blur-strength)) !important;
+padding: var(--zen-padding-sm) !important;
+border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+menuitem {
+border-radius: var(--zen-border-radius-sm) !important;
+margin: var(--zen-padding-sm) 0 !important;
+}
+
+/* 8. Scrollbars
+============= */
+* {
+scrollbar-width: thin;
+scrollbar-color: var(--zen-accent) transparent;
+}
+
+*::-webkit-scrollbar {
+width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+background: var(--zen-accent);
+border-radius: var(--zen-border-radius-sm);
+}
+
+/* 9. Special Effects
+================== */
+/* 9.1 Mica Effect */
+#navigator-toolbox::after {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+backdrop-filter: blur(var(--zen-blur-strength)) saturate(1.8);
+z-index: -1;
+}
+
+/* 9.2 Blur Effects */
+.urlbarView {
+backdrop-filter: blur(var(--zen-blur-strength)) !important;
+background-color: rgba(0, 0, 0, var(--zen-bg-opacity)) !important;
+}
+
+/* 10. Animations & Transitions
+=========================== */
+@keyframes loading-burst {
+0% { transform: scale(0.8); opacity: 0.5; }
+50% { transform: scale(1.2); opacity: 0.8; }
+100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+.tab-loading-burst {
+animation: loading-burst 1.5s ease-in-out infinite !important;
+}
+
+/* 11. Media Queries & Responsive Design
+=================================== */
+@media (max-width: 1024px) {
+.tab-content {
+    padding: 0 var(--zen-padding-sm) !important;
+}
+
+.tab-background {
+    margin: var(--zen-padding-sm) !important;
+}
+}
+
+/* 12. Performance Optimizations
+============================ */
+/* Disable transitions during tab drag */
+#tabbrowser-tabs[movingtab] {
+transition: none !important;
+}
+
+/* Use hardware acceleration where beneficial */
+.tab-background,
+#urlbar,
+.urlbarView {
+will-change: transform, opacity;
+}
+
+/* Layer promotion for animations */
+.tabbrowser-tab {
+contain: layout style;
+isolation: isolate;
+}
+

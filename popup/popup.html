@@ -1,101 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="popup.css">
+    <link rel="stylesheet" href="popup.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Zen Image Downloader</h1>
-        
-        <div class="stats-panel">
-            <div class="stat-item">
-                <span class="stat-label">Total Images:</span>
-                <span id="totalImages">0</span>
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner hidden">
+        <div class="spinner"></div>
+        <p class="loading-text">Processing images...</p>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <div class="container" role="main">
+        <header class="header" role="banner">
+            <h1><i class="material-icons" aria-hidden="true">image</i> Image Downloader</h1>
+            <div class="theme-toggle">
+                <button id="themeToggle" class="icon-button" aria-label="Toggle dark mode">
+                    <i class="material-icons">dark_mode</i>
+                </button>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Selected:</span>
-                <span id="selectedCount">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Downloaded:</span>
-                <span id="downloadCount">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">Failed:</span>
-                <span id="failureCount">0</span>
-            </div>
-        </div>
-        
-        <div class="preview-panel">
-            <h2>Image Preview</h2>
-            <div id="imagePreview" class="preview-grid"></div>
-        </div>
-        
-        <div class="filters">
-            <div class="filter-group">
-                <label>File Types:</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="fileType" value="jpg" checked> JPG</label>
-                    <label><input type="checkbox" name="fileType" value="png" checked> PNG</label>
-                    <label><input type="checkbox" name="fileType" value="gif" checked> GIF</label>
-                    <label><input type="checkbox" name="fileType" value="webp" checked> WebP</label>
+        </header>
+
+        <div class="stats-panel" role="region" aria-label="Image Statistics">
+            <div class="stat-card">
+                <i class="material-icons" aria-hidden="true">photo_library</i>
+                <div class="stat-content">
+                    <span class="stat-label">Images Found</span>
+                    <span id="imageCount" class="stat-value" aria-live="polite">0</span>
                 </div>
             </div>
-            
-            <div class="filter-group">
-                <label>Minimum Size:</label>
-                <input type="number" id="minWidth" placeholder="Width (px)" min="0">
-                <input type="number" id="minHeight" placeholder="Height (px)" min="0">
-            </div>
-            
-            <div class="filter-group">
-                <label>Download Location:</label>
-                <input type="text" id="subdirectory" placeholder="Subdirectory (optional)">
+            <div class="stat-card">
+                <i class="material-icons" aria-hidden="true">check_circle</i>
+                <div class="stat-content">
+                    <span class="stat-label">Selected</span>
+                    <span id="selectedCount" class="stat-value" aria-live="polite">0</span>
+                </div>
             </div>
         </div>
-        
-        <div class="advanced-options">
-            <h3 class="collapsible">Advanced Options</h3>
-            <div class="collapsible-content">
+
+        <div class="filters" role="region" aria-label="Image Filters">
+            <div class="filter-section">
+                <h2><i class="material-icons" aria-hidden="true">tune</i> Filters</h2>
+                
                 <div class="filter-group">
-                    <label>Naming Pattern:</label>
-                    <input type="text" id="namingPattern" placeholder="e.g., image_{n}_{date}" value="image_{n}">
-                    <div class="pattern-help">
-                        Available variables: {n} = number, {date} = date, {type} = file type
+                    <label for="minWidth">Minimum Size (pixels)</label>
+                    <div class="size-inputs">
+                        <div class="input-with-icon">
+                            <i class="material-icons" aria-hidden="true">width</i>
+                            <input type="number" id="minWidth" placeholder="Width" min="0" aria-label="Minimum width in pixels">
+                        </div>
+                        <div class="input-with-icon">
+                            <i class="material-icons" aria-hidden="true">height</i>
+                            <input type="number" id="minHeight" placeholder="Height" min="0" aria-label="Minimum height in pixels">
+                        </div>
                     </div>
                 </div>
                 
-                <div class="filter-group">
-                    <label>Convert To:</label>
-                    <select id="convertFormat">
-                        <option value="original">Original Format</option>
-                        <option value="jpg">JPG</option>
-                        <option value="png">PNG</option>
-                        <option value="webp">WebP</option>
-                    </select>
+                <div class="filter-group" role="group" aria-label="File Types">
+                    <label>File Types</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="jpg" checked aria-label="Include JPG files">
+                            <span class="checkbox-text">JPG</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="png" checked aria-label="Include PNG files">
+                            <span class="checkbox-text">PNG</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="gif" checked aria-label="Include GIF files">
+                            <span class="checkbox-text">GIF</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="webp" checked aria-label="Include WebP files">
+                            <span class="checkbox-text">WebP</span>
+                        </label>
+                    </div>
                 </div>
-                
-                <div class="filter-group">
-                    <label>Quality:</label>
-                    <input type="range" id="quality" min="1" max="100" value="85">
-                    <span id="qualityValue">85%</span>
+            </div>
+
+            <div class="advanced-options">
+                <button class="collapsible" aria-expanded="false" aria-controls="advancedContent">
+                    <i class="material-icons" aria-hidden="true">settings</i>
+                    Advanced Options
+                    <i class="material-icons arrow" aria-hidden="true">expand_more</i>
+                </button>
+                <div id="advancedContent" class="collapsible-content" hidden>
+                    <div class="filter-group">
+                        <label for="saveLocation">Save Location</label>
+                        <div class="input-with-icon">
+                            <i class="material-icons" aria-hidden="true">folder</i>
+                            <input type="text" id="saveLocation" placeholder="Downloads/Images" aria-label="Save location directory">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filenamePattern">Filename Pattern</label>
+                        <div class="input-with-icon">
+                            <i class="material-icons" aria-hidden="true">text_format</i>
+                            <input type="text" id="filenamePattern" placeholder="image_{n}_{date}" value="image_{n}" aria-label="Filename pattern">
+                        </div>
+                        <div class="pattern-help" role="tooltip">
+                            Available: {n} = number, {date} = date, {type} = file type
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="quality">Image Quality</label>
+                        <div class="quality-slider">
+                            <input type="range" id="quality" min="1" max="100" value="85" aria-valuemin="1" aria-valuemax="100" aria-valuenow="85">
+                            <span id="qualityValue" aria-live="polite">85%</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div id="downloadQueue" class="download-queue">
-            <h3>Download Queue</h3>
-            <div class="queue-list" id="queueList"></div>
+
+        <div class="preview-panel" role="region" aria-label="Image Preview">
+            <h2><i class="material-icons" aria-hidden="true">preview</i> Preview</h2>
+            <div id="previewGrid" class="preview-grid" role="grid" tabindex="0" aria-label="Grid of found images"></div>
+        </div>
+
+        <div class="action-buttons">
+            <button id="selectAllBtn" class="secondary-button" aria-label="Select or deselect all images">
+                <i class="material-icons" aria-hidden="true">select_all</i>
+                Select All
+            </button>
+            <button id="downloadButton" class="primary-button" aria-label="Download selected images">
+                <i class="material-icons" aria-hidden="true">download</i>
+                Download Images
+            </button>
         </div>
         
-        <button id="downloadButton">Download Selected Images</button>
-        <div id="progress" class="progress-container" style="display: none;">
-        <div class="progress-bar">
-        <div id="progress-fill"></div>
+        <div class="progress-container" style="display: none;" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+            <div id="progress-text" aria-live="polite">0%</div>
         </div>
-        <div id="progress-text">0%</div>
-    </div>
     </div>
     <script src="popup.js"></script>
 </body>
